@@ -1,0 +1,26 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    font-size: .28rem;
+    font-family: Dengxian,"Helvetica Neue",Helvetica,STHeiTi,sans-serif,'Microsoft YaHei UI','Microsoft YaHei';
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+#background-image {
+    position: absolute;
+    max-width: 6080px;
+    max-height: 10450px;
+}
+
+#avatar-image {
+    position: absolute;
+}
+
+.result_view_button {
+    position: absolute;
+    opacity: 0;
+}
