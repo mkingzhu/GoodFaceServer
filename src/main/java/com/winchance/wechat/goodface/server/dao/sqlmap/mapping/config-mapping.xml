@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="wechat">
+  <select id="SELECT-GOODFACE-CONFIG-VALUE-BY-KEY" parameterClass="java.lang.String" resultClass="java.lang.String">
+    <![CDATA[
+      select config_value
+      from config where config_key = #key#
+    ]]>
+  </select>
+</sqlMap>

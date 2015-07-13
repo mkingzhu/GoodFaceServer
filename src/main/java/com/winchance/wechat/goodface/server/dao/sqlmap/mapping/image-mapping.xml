@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="wechat">
+  <insert id="SAVE-GOODFACE-IMAGE" parameterClass="com.winchance.wechat.goodface.server.dao.dataobject.ImageDo">
+    <![CDATA[
+      insert into image(
+          user_id, refer_time, url 
+      )values(
+          #userId#, #referTime#, #url#
+      )
+    ]]>
+    <selectKey resultClass="java.lang.Long">
+      <![CDATA[
+        SELECT @@IDENTITY AS id
+      ]]>
+    </selectKey>
+  </insert>
+</sqlMap>
