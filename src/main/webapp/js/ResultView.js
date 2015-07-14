@@ -48,13 +48,34 @@ function isWeixin(){
 }
 backgourndImage.onload = function () {
     configurAllContext();
-}
-if (backgroundId) {
-    backgourndImage.src = backgroundImageUrlsArray[backgroundId];
-} else {
-    var randomId = Math.round(Math.random()*6);
-    backgourndImage.src = backgroundImageUrlsArray[randomId];
-    backgroundId = randomId;
+
+    if (backgroundId) {
+        backgourndImage.src = backgroundImageUrlsArray[backgroundId];
+    } else {
+        var randomId = Math.round(Math.random()*6);
+        backgourndImage.src = backgroundImageUrlsArray[randomId];
+        backgroundId = randomId;
+    }
+    wx.config({
+        debug: false,
+        appId: '$!{appId}',
+        timestamp: '$!{timestamp}',
+        nonceStr:  '$!{nonceStr}',
+        signature: '$!{signature}',
+        jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage']
+    });
+    wx.ready(function () {
+        var cfg = {
+            title: '刷脸游戏 - 好礼等你来拿',
+            link: window.location.href + "&backgroundId=" + backgroundId, //use url Format
+            imgUrl: imageUrl //use imageUrl
+        };
+        wx.onMenuShareTimeline(cfg);
+        wx.onMenuShareAppMessage(cfg);
+    });
+    wx.error(function (res) {
+        alert(res.errMsg);
+    });
 }
 
 function configurAllContext () {
@@ -107,7 +128,7 @@ function configureRuleButton () {
 }
 
 startButton.onclick = function () {
-    window.location.href = "/TakePhotoView.htm";
+    window.location.href = "TakePhotoView.htm";
 };
 
 ruleButton.onclick = function () {
@@ -126,11 +147,3 @@ function GetRequest() {
     }
     return theRequest;
 }
-
-var cfg = {
-    title: '刷脸游戏 - 好礼等你来拿',
-    link: window.location.href + "&backgroundId=" + backgroundId, //use url Format
-    imgUrl: imageUrl //use imageUrl
-};
-wx.onMenuShareTimeline(cfg);
-wx.onMenuShareAppMessage(cfg);
