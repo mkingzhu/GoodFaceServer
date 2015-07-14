@@ -19,6 +19,13 @@ var backgroundImageUrlsArray = ["img/result_view_background_image1.png",
                                 "img/result_view_background_image5.png",
                                 "img/result_view_background_image6.png",
                                 "img/result_view_background_image7.png"];
+var titleArray = ['哇哦！颜值爆表！我结婚以后"靠脸"吃饭！',
+                  '由于长相丑出天际，我结婚以后"靠体力"吃法！',
+                  '长得好看有人疼，我结婚以后"靠老公"吃法！',
+                  '基因这么好，我结婚以后"靠萌娃"吃法！',
+                  '长得好看又机智，我结婚以后"靠才华"吃法！',
+                  '生活在这个看脸的时代好累，我结婚以后"靠运气"吃法！',
+                  '什么鬼？我要报警了！我结婚以后"靠低保"吃法！'];
 var backgourndImage = document.getElementById("background-image");
 var avatarImage = document.getElementById("avatar-image");
 var shareButton = document.getElementById("share_button");
@@ -51,7 +58,7 @@ backgourndImage.onload = function () {
     wx.config(wxConfig);
     wx.ready(function () {
         var cfg = {
-            title: '刷脸游戏 - 好礼等你来拿',
+            title: titleArray[backgroundId],
             link: window.location.href + "&backgroundId=" + backgroundId, //use url Format
             imgUrl: imageUrl //use imageUrl
         };
@@ -64,10 +71,10 @@ backgourndImage.onload = function () {
 }
 
 if (backgroundId) {
-    backgourndImage.src = backgroundImageUrlsArray[backgroundId];
+    backgourndImage.src = backgroundImageUrlsArray[backgroundId] + '?time=' + new Date().getTime();
 } else {
     var randomId = Math.round(Math.random()*6);
-    backgourndImage.src = backgroundImageUrlsArray[randomId];
+    backgourndImage.src = backgroundImageUrlsArray[randomId] + '?time=' + new Date().getTime();
     backgroundId = randomId;
 }
 

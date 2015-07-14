@@ -28,6 +28,9 @@ public class HomeController {
 
     @RequestMapping(value = "RuleView.htm", method = { RequestMethod.GET })
     public String ruleView(ModelMap modelMap, HttpServletRequest request) {
+        modelMap.addAllAttributes(WeixinSign.sign(Constant.APP_ID,
+                                                  wechatTokenServiceClient.getJsapiTicket(),
+                                                  getUrl(request)));
         return "home/RuleView";
     }
 
