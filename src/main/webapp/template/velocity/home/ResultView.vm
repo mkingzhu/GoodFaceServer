@@ -23,6 +23,7 @@
     <input type="image" id="share_button" class="result_view_button" src="img/share_button.png"/>
     <input type="image" id="start_button" class="result_view_button" src="img/start_test_button.png"/>
     <input type="image" id="rule_button" class="result_view_button" src="img/rule_button.png"/>
-	</body>
+    </body>
+    <script src="js/cookie.js"></script>
     <script src="js/ResultView.js"></script>
 </html>

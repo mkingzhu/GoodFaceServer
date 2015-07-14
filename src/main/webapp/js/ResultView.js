@@ -7,11 +7,6 @@
  * background can be nil
  * if background is nil we get a random number for bakgroundImage
 **/
-var Request = GetRequest();
-var imageUrl = Request['imageUrl'];
-var backgroundId = Request['backgroundId'];
-var needShowShareButton = !backgroundId;
-
 var backgroundImageUrlsArray = ["img/result_view_background_image1.png",
                                 "img/result_view_background_image2.png",
                                 "img/result_view_background_image3.png",
@@ -20,12 +15,12 @@ var backgroundImageUrlsArray = ["img/result_view_background_image1.png",
                                 "img/result_view_background_image6.png",
                                 "img/result_view_background_image7.png"];
 var titleArray = ['哇哦！颜值爆表！我结婚以后"靠脸"吃饭！',
-                  '由于长相丑出天际，我结婚以后"靠体力"吃法！',
-                  '长得好看有人疼，我结婚以后"靠老公"吃法！',
-                  '基因这么好，我结婚以后"靠萌娃"吃法！',
-                  '长得好看又机智，我结婚以后"靠才华"吃法！',
-                  '生活在这个看脸的时代好累，我结婚以后"靠运气"吃法！',
-                  '什么鬼？我要报警了！我结婚以后"靠低保"吃法！'];
+                  '由于长相丑出天际，我结婚以后"靠体力"吃饭！',
+                  '长得好看有人疼，我结婚以后"靠老公"吃饭！',
+                  '基因这么好，我结婚以后"靠萌娃"吃饭！',
+                  '长得好看又机智，我结婚以后"靠才华"吃饭！',
+                  '生活在这个看脸的时代好累，我结婚以后"靠运气"吃饭！',
+                  '什么鬼？我要报警了！我结婚以后"靠低保"吃饭！'];
 var backgourndImage = document.getElementById("background-image");
 var avatarImage = document.getElementById("avatar-image");
 var shareButton = document.getElementById("share_button");
@@ -52,6 +47,23 @@ function isWeixin(){
     }
 }
 
+var Request = GetRequest();
+var imageUrl = Request['imageUrl'];
+var lastAction = cookie('lastAction');
+var backgroundId = Request['backgroundId'];
+if (!backgroundId && ('rule' == lastAction || 'result' == lastAction)) {
+    backgroundId = cookie('backgroundId');
+}
+if (backgroundId) {
+    backgourndImage.src = backgroundImageUrlsArray[backgroundId] + '?time=' + new Date().getTime();
+} else {
+    var randomId = Math.round(Math.random()*6);
+    backgourndImage.src = backgroundImageUrlsArray[randomId] + '?time=' + new Date().getTime();
+    backgroundId = randomId;
+}
+cookie('lastAction', 'result', { expires: 365, path: '/' });
+cookie('backgroundId', backgroundId, { expires: 365, path: '/' });
+
 backgourndImage.onload = function () {
     configurAllContext();
 
@@ -68,14 +80,6 @@ backgourndImage.onload = function () {
     wx.error(function (res) {
         alert(res.errMsg);
     });
-}
-
-if (backgroundId) {
-    backgourndImage.src = backgroundImageUrlsArray[backgroundId] + '?time=' + new Date().getTime();
-} else {
-    var randomId = Math.round(Math.random()*6);
-    backgourndImage.src = backgroundImageUrlsArray[randomId] + '?time=' + new Date().getTime();
-    backgroundId = randomId;
 }
 
 function configurAllContext () {
@@ -128,6 +132,8 @@ startButton.onclick = function () {
 };
 
 ruleButton.onclick = function () {
+    cookie('lastAction', 'rule', { expires: 365, path: '/' });
+    cookie('backgroundId', backgroundId, { expires: 365, path: '/' });
     window.location.href = "RuleView.htm";
 }
 
