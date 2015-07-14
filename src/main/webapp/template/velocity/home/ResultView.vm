@@ -10,7 +10,7 @@
             var wxConfig = {
                 debug: false,
                 appId: '$!{appId}',
-                timestamp: '$!{timestamp}',
+                timestamp: $!{timestamp},
                 nonceStr:  '$!{nonceStr}',
                 signature: '$!{signature}',
                 jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage']
