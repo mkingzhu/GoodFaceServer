@@ -6,6 +6,16 @@
         <title></title>
         <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
         <link rel="stylesheet" href="css/ResultView.css"/>
+        <script>
+            var wxConfig = {
+                debug: false,
+                appId: '$!{appId}',
+                timestamp: '$!{timestamp}',
+                nonceStr:  '$!{nonceStr}',
+                signature: '$!{signature}',
+                jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage']
+            };
+        </script>
     </head>
     <body>
     <img id="avatar-image"/>

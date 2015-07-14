@@ -7,13 +7,11 @@
  * background can be nil
  * if background is nil we get a random number for bakgroundImage
 **/
-var Request = new Object();
-Request = GetRequest();
+var Request = GetRequest();
 var imageUrl = Request['imageUrl'];
 var backgroundId = Request['backgroundId'];
-console.info(backgroundId);
+var needShowShareButton = !backgroundId;
 
-//console.info(imageUrl);
 var backgroundImageUrlsArray = ["img/result_view_background_image1.png",
                                 "img/result_view_background_image2.png",
                                 "img/result_view_background_image3.png",
@@ -46,24 +44,11 @@ function isWeixin(){
         return false;
     }
 }
+
 backgourndImage.onload = function () {
     configurAllContext();
 
-    if (backgroundId) {
-        backgourndImage.src = backgroundImageUrlsArray[backgroundId];
-    } else {
-        var randomId = Math.round(Math.random()*6);
-        backgourndImage.src = backgroundImageUrlsArray[randomId];
-        backgroundId = randomId;
-    }
-    wx.config({
-        debug: false,
-        appId: '$!{appId}',
-        timestamp: '$!{timestamp}',
-        nonceStr:  '$!{nonceStr}',
-        signature: '$!{signature}',
-        jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage']
-    });
+    wx.config(wxConfig);
     wx.ready(function () {
         var cfg = {
             title: '刷脸游戏 - 好礼等你来拿',
@@ -78,10 +63,18 @@ backgourndImage.onload = function () {
     });
 }
 
+if (backgroundId) {
+    backgourndImage.src = backgroundImageUrlsArray[backgroundId];
+} else {
+    var randomId = Math.round(Math.random()*6);
+    backgourndImage.src = backgroundImageUrlsArray[randomId];
+    backgroundId = randomId;
+}
+
 function configurAllContext () {
     fixBackgroundPosition();
     configureStartButton();
-    if (!backgroundId) {
+    if (needShowShareButton) {
         configureShareButton();
     }
     configureRuleButton();
