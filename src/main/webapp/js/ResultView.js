@@ -93,7 +93,6 @@ function fixAvatarPosition () {
     avatarImage.style.height = backgourndImage.offsetHeight * (265 / 1645) + "px";
     avatarImage.style.left = (document.body.offsetWidth - avatarImage.width ) / 2 + "px";
     avatarImage.style.top = backgourndImage.offsetTop + backgourndImage.offsetHeight * (225 / 1645) + "px";
-    console.info(avatarImage.offsetTop);
 }
 
 function configureShareButton () {
