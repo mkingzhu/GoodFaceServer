@@ -20,13 +20,9 @@ public class HomeController {
 
     @RequestMapping(value = "ResultView.htm", method = { RequestMethod.GET })
     public String resultView(ModelMap modelMap, HttpServletRequest request) {
-        StringBuffer url = new StringBuffer(request.getRequestURL());
-        String queryString = request.getQueryString();
-        if (!StringUtil.isEmpty(queryString))
-            url.append("?").append(queryString);
         modelMap.addAllAttributes(WeixinSign.sign(Constant.APP_ID,
                                                   wechatTokenServiceClient.getJsapiTicket(),
-                                                  url.toString()));
+                                                  getUrl(request)));
         return "home/ResultView";
     }
 
@@ -37,13 +33,18 @@ public class HomeController {
 
     @RequestMapping(value = "TakePhotoView.htm", method = { RequestMethod.GET })
     public String takePhotoView(ModelMap modelMap, HttpServletRequest request) {
-        StringBuffer url = new StringBuffer(request.getRequestURL());
+        modelMap.addAllAttributes(WeixinSign.sign(Constant.APP_ID,
+                                                  wechatTokenServiceClient.getJsapiTicket(),
+                                                  getUrl(request)));
+        return "home/TakePhotoView";
+    }
+
+    private String getUrl(HttpServletRequest request) {
+        StringBuffer url = new StringBuffer("http://ws.winchance870.com");
+        url.append(request.getRequestURI());
         String queryString = request.getQueryString();
         if (!StringUtil.isEmpty(queryString))
             url.append("?").append(queryString);
-        modelMap.addAllAttributes(WeixinSign.sign(Constant.APP_ID,
-                                                  wechatTokenServiceClient.getJsapiTicket(),
-                                                  url.toString()));
-        return "home/TakePhotoView";
+        return url.toString();
     }
 }
