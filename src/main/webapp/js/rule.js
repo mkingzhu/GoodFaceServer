@@ -29,6 +29,7 @@ function configureButtons () {
 	returnButton.style.width = backgroundImage.offsetHeight * (40 / 960) + "px";
 	returnButton.style.top = backgroundImage.offsetHeight * (100 / 960) + "px";
     returnButton.style.left = backgroundImage.offsetHeight * (530 / 960) + "px";
+	returnButton.style.opacity = 1;
     bigReturnButton.style.width = backgroundImage.offsetHeight * (100 / 960) + "px";
     bigReturnButton.style.height = backgroundImage.offsetHeight * (100 / 960) + "px";
     bigReturnButton.style.top = backgroundImage.offsetHeight * (70 / 960) + "px";

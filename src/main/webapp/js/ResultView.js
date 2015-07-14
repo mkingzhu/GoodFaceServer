@@ -74,9 +74,6 @@ if (backgroundId) {
 function configurAllContext () {
     fixBackgroundPosition();
     configureStartButton();
-    if (needShowShareButton) {
-        configureShareButton();
-    }
     configureRuleButton();
     avatarImage.onload = function () {
         fixAvatarPosition();
